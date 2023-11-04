@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Time-based Quote Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12pt;
+            color: black;
+            text-align: center;
+            margin-top: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="quote-container">
+        <p id="quote">Loading...</p>
+    </div>
+
+    <script>
+        function getQuote() {
+            const currentTime = new Date();
+            const currentHour = currentTime.getHours();
+
+            if (currentHour >= 6 && currentHour < 12) {
+                document.getElementById("quote").textContent = "Good morning ☀️";
+            } else if (currentHour >= 12 && currentHour < 18) {
+                document.getElementById("quote").textContent = "Good afternoon";
+            } else if (currentHour >= 18 && currentHour < 21) {
+                document.getElementById("quote").textContent = "Good evening 🌚";
+            } else {
+                document.getElementById("quote").textContent = "Good night 🌌🌝";
+            }
+        }
+
+        // Get the initial quote
+        getQuote();
+
+        // Update the quote every minute (optional)
+        setInterval(getQuote, 60000);
+    </script>
+</body>
+</html>
