@@ -1,48 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Time-based Quote Display</title>
     <style>
         body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
             font-family: Arial, sans-serif;
-            font-size: 20pt;
             color: white;
-            text-align: center;
+            background: transparent;
         }
-        #quote-container {
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
+
+        #quote {
+            margin-top: 50px;
+            font-size: clamp(18px, 3vw, 28px);
+            opacity: 0;
+            transition: opacity 0.6s ease;
         }
     </style>
 </head>
 <body>
-    <div id="quote-container">
-        <p id="quote">Loading...</p>
-    </div>
+
+    <p id="quote">Loading...</p>
 
     <script>
         function getQuote() {
-            const currentTime = new Date();
-            const currentHour = currentTime.getHours();
+            const hour = new Date().getHours();
+            let text = "";
 
-            if (currentHour >= 6 && currentHour < 12) {
-                document.getElementById("quote").textContent = "Good morning ☀️";
-            } else if (currentHour >= 12 && currentHour < 18) {
-                document.getElementById("quote").textContent = "Good afternoon";
-            } else if (currentHour >= 18 && currentHour < 21) {
-                document.getElementById("quote").textContent = "Good evening 🌚";
+            if (hour >= 6 && hour < 12) {
+                text = "Good morning ☀️";
+            } else if (hour >= 12 && hour < 18) {
+                text = "Good afternoon 🌤️";
+            } else if (hour >= 18 && hour < 21) {
+                text = "Good evening 🌙";
             } else {
-                document.getElementById("quote").textContent = "Good night 🌌🌝";
+                text = "Good night 🌌";
             }
+
+            const quoteEl = document.getElementById("quote");
+            quoteEl.style.opacity = 0;
+
+            setTimeout(() => {
+                quoteEl.textContent = text;
+                quoteEl.style.opacity = 1;
+            }, 300);
         }
 
-        // Get the initial quote
         getQuote();
-
-        // Update the quote every minute (optional)
         setInterval(getQuote, 60000);
     </script>
+
 </body>
 </html>
